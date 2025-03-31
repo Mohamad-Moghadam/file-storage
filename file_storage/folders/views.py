@@ -3,8 +3,10 @@ import os
 from django.conf import settings
 from django.http import HttpResponse
 from folders.models import Folder
+from django.views.decorators.csrf import csrf_exempt
 
 
+@csrf_exempt
 def new_folder(request):
     if request.method == 'POST':
         folder_name = request.POST.get('folder_name')
