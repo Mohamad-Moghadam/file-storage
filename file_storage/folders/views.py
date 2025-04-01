@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import os
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from folders.models import Folder
 from django.views.decorators.csrf import csrf_exempt
 
@@ -12,11 +12,12 @@ def new_folder(request):
         folder_name = request.POST.get('folder_name')
 
         folder_path = os.path.join(settings.MEDIA_ROOT, folder_name)
+        
 
         os.makedirs(folder_path)
 
         Folder.objects.create(
-            name = folder_name.get('folder_name')
+            name = folder_name
         )
 
         return HttpResponse(f"folder was created. ")
