@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 import os
 from django.conf import settings
 from django.http import HttpResponse, JsonResponse
@@ -27,5 +27,13 @@ def ls_folders(request):
     context = {
         'folders': Folder.objects.all()
     }
-    
+
     return render(request, "all_folders/all_folders.html", context)
+
+
+def rm_folder(request, folder: str):
+    the_folder = get_object_or_404(Folder, name= folder)
+
+    Folder.objects.delete(the_folder)
+
+    return HttpResponse(f"{the_folder} deleted. ")
