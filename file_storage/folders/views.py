@@ -4,6 +4,7 @@ from django.conf import settings
 from django.http import HttpResponse, JsonResponse
 from folders.models import Folder
 from django.views.decorators.csrf import csrf_exempt
+import shutil
 
 
 @csrf_exempt
@@ -35,5 +36,10 @@ def rm_folder(request, folder: str):
     the_folder = get_object_or_404(Folder, name= folder)
 
     the_folder.delete()
+    folder_name = the_folder.name
+
+    folder_path = os.path(settings.MEDIA_ROOT, folder_name)
+
+    shutil.rmtree(folder_path)
 
     return HttpResponse(f"{the_folder.name} deleted. ")
