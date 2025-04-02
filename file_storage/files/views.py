@@ -6,6 +6,7 @@ import os
 from files.models import File
 from django.http import HttpResponse
 from django.conf import settings
+import shutil
 
 
 @csrf_exempt
@@ -23,7 +24,8 @@ def new_file(request, destination_folder: str):
         )
 
         return HttpResponse(f"file created. ")
-    
+
+
 def ls_files(request, folder: str):
     the_folder = get_object_or_404(Folder, name= folder)
     files_in_folder= the_folder.the_folder_that_contains_the_file.all()
@@ -35,3 +37,19 @@ def ls_files(request, folder: str):
 
     return render(request, "all_files/all_files.html", context)
 
+
+def rm_file(request, folder: str, file: str):
+    the_folder= get_object_or_404(Folder, name= folder)
+
+    the_file = get_object_or_404(the_folder.the_folder_that_contains_the_file, name=file)
+    file_name = the_file.name
+
+    the_file.delete()
+
+    folder_path= os.path.join(settings.MEDIA_ROOT, the_folder.name)
+
+    file_path = os.path.join(settings.MEDIA_ROOT, folder, file_name)
+
+    os.remove(file_path)
+
+    return HttpResponse(f"{file_name} is removed. ")

@@ -34,9 +34,9 @@ def ls_folders(request):
 
 def rm_folder(request, folder: str):
     the_folder = get_object_or_404(Folder, name= folder)
-
-    the_folder.delete()
     folder_name = the_folder.name
+    
+    the_folder.delete()
 
     folder_path = os.path.join(settings.MEDIA_ROOT, folder_name)
 
