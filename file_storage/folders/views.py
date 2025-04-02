@@ -21,3 +21,11 @@ def new_folder(request):
         )
 
         return HttpResponse(f"folder was created. ")
+
+
+def ls_folders(request):
+    context = {
+        'folders': Folder.objects.all()
+    }
+    
+    return render(request, "all_folders/all_folders.html", context)
