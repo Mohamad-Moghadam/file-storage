@@ -34,6 +34,6 @@ def ls_folders(request):
 def rm_folder(request, folder: str):
     the_folder = get_object_or_404(Folder, name= folder)
 
-    Folder.objects.delete(the_folder)
+    the_folder.delete()
 
-    return HttpResponse(f"{the_folder} deleted. ")
+    return HttpResponse(f"{the_folder.name} deleted. ")
