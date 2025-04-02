@@ -38,7 +38,7 @@ def rm_folder(request, folder: str):
     the_folder.delete()
     folder_name = the_folder.name
 
-    folder_path = os.path(settings.MEDIA_ROOT, folder_name)
+    folder_path = os.path.join(settings.MEDIA_ROOT, folder_name)
 
     shutil.rmtree(folder_path)
 
