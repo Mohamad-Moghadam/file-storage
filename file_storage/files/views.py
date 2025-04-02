@@ -23,3 +23,15 @@ def new_file(request, destination_folder: str):
         )
 
         return HttpResponse(f"file created. ")
+    
+def ls_files(request, folder: str):
+    the_folder = get_object_or_404(Folder, name= folder)
+    files_in_folder= the_folder.the_folder_that_contains_the_file.all()
+
+    context = {
+        'folder': the_folder,
+        'files': files_in_folder
+    }
+
+    return render(request, "all_files/all_files.html", context)
+
