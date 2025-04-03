@@ -32,7 +32,7 @@ def ls_files(request, folder: str):
 
     context = {
         'folder': the_folder,
-        'files': files_in_folder
+        'files_in_folder': files_in_folder
     }
 
     return render(request, "all_files/all_files.html", context)
