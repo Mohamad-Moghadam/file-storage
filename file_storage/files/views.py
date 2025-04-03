@@ -28,7 +28,7 @@ def new_file(request, destination_folder: str):
 
 def ls_files(request, folder: str):
     the_folder = get_object_or_404(Folder, name= folder)
-    files_in_folder= the_folder.the_folder_that_contains_the_file.all()
+    files_in_folder = the_folder.the_folder_that_contains_the_file.all()
 
     context = {
         'folder': the_folder,
